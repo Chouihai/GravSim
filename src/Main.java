@@ -23,7 +23,7 @@ public class Main {
                 JFrame j = new JFrame();
                 j.setTitle("Particle Simulation");
                 j.setContentPane(animation);
-                j.getContentPane().setBackground(Color.BLACK);
+                j.getContentPane().setBackground(Color.black);
                 j.setSize(1000,1000);
                 j.setVisible(true);
                 j.setResizable(true);

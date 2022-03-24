@@ -12,7 +12,7 @@ public class ParticleSimulation extends JPanel {
      * Put this in to keep Eclipse happy ("KEH").
      */
     private static final long serialVersionUID = 1L;
-
+    int instance =0;
     private final Planet[] planets;
     /**
      * Create a particle simulation with three particles
@@ -27,7 +27,6 @@ public class ParticleSimulation extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        int instance =0;
         for (Planet p : planets) {
             p.trail.add(p.getPosition());
             Point temp = p.getPosition();
@@ -43,7 +42,6 @@ public class ParticleSimulation extends JPanel {
             }
             p.draw(g);
         }
-        instance++;
     }
 
     /**
@@ -63,5 +61,6 @@ public class ParticleSimulation extends JPanel {
             p.move();
         }
         repaint();
+        instance++;
     }
 }
