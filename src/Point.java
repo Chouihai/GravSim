@@ -1,4 +1,8 @@
 //Haitam Chouiekh
+
+import java.awt.*;
+import java.util.Objects;
+
 /**
  * Immutable location in two dimensional space.
  */
@@ -8,14 +12,19 @@ public class Point {
 
     /**
      * Create a point at the given (x,y) coordinates
-     * @param xCoord x coordinate
-     * @param yCoord y coordinate
      */
+    public Point(Point point){
+        this.x = point.x();
+        this.y = point.y();
+    }
     public Point(double xCoord, double yCoord) {
         this.x = xCoord;
         this.y = yCoord;
     }
-
+    public void draw(Graphics g){
+        g.setColor(Color.white);
+        g.fillOval((int)this.x, (int)this.y, 2,2);
+    }
     // Getters for x and y (see assignment)
     public double x() {
         return x;
@@ -50,4 +59,13 @@ public class Point {
     public String toString() {
         return "("+this.x()+","+this.y()+")";
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Point point = (Point) o;
+        return Double.compare(point.x, x) == 0 && Double.compare(point.y, y) == 0;
+    }
+
 }

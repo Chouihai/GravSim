@@ -1,6 +1,8 @@
 //Haitam Chouiekh
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.ArrayList;
+import java.util.Queue;
 
 /**
  * Representation of a point mass moving in two dimensional space.
@@ -13,7 +15,8 @@ public class Planet {
     private volatile Vector velocity;
     private final double mass;
     private final Color color;
-    private final int radius;
+    int radius;
+    LinkedCollection<Point> trail;
     /**
      * Create a new particle with the given position, velocity, mass and color
      * @param p position (location) of particle initially, must not be null
@@ -24,6 +27,7 @@ public class Planet {
      * @throws IllegalArgumentException is mass is negative
      */
     public Planet(String name, Point p, Vector v, double m, Color c, int radius) {
+        trail = new LinkedCollection<>();
         if(name == null) throw new NullPointerException("name is null");
         this.name = name;
         if (p == null) throw new NullPointerException("Position cannot be null");

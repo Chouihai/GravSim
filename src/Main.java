@@ -1,4 +1,4 @@
-import java.awt.Color;
+import java.awt.*;
 
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
@@ -33,7 +33,7 @@ public class Main {
 
         while (args.length == 0) {
             try {
-                Thread.sleep(1);
+                Thread.sleep(10);
                 animation.move();
             } catch (InterruptedException e) {
                 return;

@@ -1,4 +1,5 @@
-import java.awt.Graphics;
+import java.awt.*;
+import java.util.Iterator;
 
 import javax.swing.JPanel;
 
@@ -13,7 +14,6 @@ public class ParticleSimulation extends JPanel {
     private static final long serialVersionUID = 1L;
 
     private final Planet[] planets;
-
     /**
      * Create a particle simulation with three particles
 //     * @param p1 first particle, must not be null
@@ -27,9 +27,23 @@ public class ParticleSimulation extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+        int instance =0;
         for (Planet p : planets) {
+            p.trail.add(p.getPosition());
+            Point temp = p.getPosition();
+            for(Point pt : p.trail){
+                if (pt.equals(temp) && instance != 0){
+                    Iterator i = p.trail.iterator();
+                    i.next();
+                    i.remove();
+                }
+            }
+            for(Point pt : p.trail){
+                pt.draw(g);
+            }
             p.draw(g);
         }
+        instance++;
     }
 
     /**
