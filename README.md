@@ -3,3 +3,5 @@ Things that still need to be done:
 -Make it more efficient
 -Add a timer
 -Add a play and stop button
+-Add a speed modifier 
+-make it resizable
