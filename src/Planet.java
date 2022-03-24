@@ -7,12 +7,13 @@ import java.awt.Graphics;
  * A particle has a location (a point), velocity (a vector), a mass (double)
  * and a color.  The mass and color never change.
  */
-public class Particle {
+public class Planet {
+    private volatile String name;
     private volatile Point position; // must be "volatile" because of animation (not for other fields)
-    // TODO: more fields.
     private volatile Vector velocity;
     private final double mass;
     private final Color color;
+    private final int radius;
     /**
      * Create a new particle with the given position, velocity, mass and color
      * @param p position (location) of particle initially, must not be null
@@ -22,7 +23,9 @@ public class Particle {
      * @throws NullPointerException if position, vector, color are null
      * @throws IllegalArgumentException is mass is negative
      */
-    public Particle(Point p, Vector v, double m, Color c) {
+    public Planet(String name, Point p, Vector v, double m, Color c, int radius) {
+        if(name == null) throw new NullPointerException("name is null");
+        this.name = name;
         if (p == null) throw new NullPointerException("Position cannot be null");
         this.position = p;
         if (v == null) throw new NullPointerException("Velocity cannot be null");
@@ -31,6 +34,8 @@ public class Particle {
         this.mass = m;
         if (c == null) throw new NullPointerException("Color cannot be null");
         this.color =c;
+        if (radius < 0) throw new IllegalArgumentException("Radius cannot be negative");
+        this.radius = radius;
     }
 
     /**
@@ -69,23 +74,23 @@ public class Particle {
         // fillOval's first two parameters are the x and y coordinates of the
         // UPPER LEFT corner of the bounding box of the oval, NOT the center!
         g.setColor(color);
-        int radius = (int) Math.sqrt(mass);
         int Xcoordinate =  (int) position.asAWT().getX() -radius;
         int Ycoordinate = (int) position.asAWT().getY() -radius;
         g.fillOval(Xcoordinate, Ycoordinate, 2*radius, 2*radius);
+        g.drawString(this.name,Xcoordinate, Ycoordinate );
     }
 
-    private static final double G = 1;
+    private static final double G = 9.8;
 
     /**
      * Compute the Newtonian gravitational force that this particle exerts on the other.
      * This force is proportional to the product of the masses and inversely proportional
-     * to the distance between them.  The constant of proportionality is given by {@link G}
+     * to the distance between them.  The constant of proportionality is given by {@link //G}
      * that is fixed at 1.0 for CS 351 purposes.  The direction of the force is toward this particle.
      * @param other particle to operate gravitation on, must not be null
      * @return force of gravitation toward this particle
      */
-    public Vector gravForceOn(Particle other) {
+    public Vector gravForceOn(Planet other) {
         Vector v21 = new Vector(other.position,this.position);
         Vector u21 = v21.normalize();
         return u21.scale((G*this.mass*other.mass)/(v21.magnitude()*v21.magnitude()));
