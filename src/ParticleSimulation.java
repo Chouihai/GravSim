@@ -12,8 +12,8 @@ public class ParticleSimulation extends JPanel {
      * Put this in to keep Eclipse happy ("KEH").
      */
     private static final long serialVersionUID = 1L;
-    int instance =0;
     private final Planet[] planets;
+    double Days = 0;
     /**
      * Create a particle simulation with three particles
 //     * @param p1 first particle, must not be null
@@ -29,18 +29,19 @@ public class ParticleSimulation extends JPanel {
         super.paintComponent(g);
         for (Planet p : planets) {
             p.trail.add(p.getPosition());
-            Point temp = p.getPosition();
-            for(Point pt : p.trail){
-                if (pt.equals(temp) && instance != 0){
-                    Iterator i = p.trail.iterator();
-                    i.next();
-                    i.remove();
-                }
+            Point current = p.getPosition();
+            if (p.trail.size()>5000){
+                Iterator i = p.trail.iterator();
+                i.next();
+                i.remove();
             }
             for(Point pt : p.trail){
                 pt.draw(g);
             }
             p.draw(g);
+            g.setColor(Color.white);
+            g.setFont(Font.getFont("Arial"));
+            g.drawString("Days:" + Math.round(Days), 8, 13);
         }
     }
 
@@ -61,6 +62,7 @@ public class ParticleSimulation extends JPanel {
             p.move();
         }
         repaint();
-        instance++;
+        Days += 0.146;
+
     }
 }

@@ -58,6 +58,10 @@ public class Planet {
         return this.velocity;
     }
 
+    public String getName() {
+        return name;
+    }
+
     /**
      * Estimate the location of the particle after one unit of time by
      * letting it move at a constant velocity for that time from its starting
@@ -109,5 +113,8 @@ public class Planet {
         //F = am
         Vector a = force.scale(1/mass);
         velocity = velocity.add(a);
+    }
+    public int getRadius() {
+        return radius;
     }
 }
